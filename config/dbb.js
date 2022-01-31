@@ -4,9 +4,10 @@ require("colors");
 const dbconnection = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGOO_URL, {
+      useCreateIndex: true,
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true,
+      useFindAndModify: false,
     });
     console.log(`mogodb conncected :${conn.connection.host}`.bgMagenta.white);
   } catch (error) {

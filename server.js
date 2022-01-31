@@ -15,7 +15,6 @@ app.use(express.json());
 
 app.use("/api/users", userRoutes);
 app.use("/api/notes", noteRoutes);
-dbconnection();
 
 // ----------------deployment-------------
 __dirname = path.resolve();
@@ -29,6 +28,8 @@ if (process.env.NODE_ENV === "production") {
     res.send("App is running ");
   });
 }
+
+dbconnection();
 
 app.use(notFound);
 app.use(errorHandler);
