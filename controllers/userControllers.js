@@ -4,34 +4,32 @@ const asyncHandler = require("express-async-handler");
 const generateToken = require('../utils/generateToken');
 
 const registerUser = asyncHandler(async (req, res) => {
-
   const { name, email, password, pic } = req.body;
 
-    // if user already exist in database 
-    const userExists = await User.findOne({ email });
-    
-    if (userExists) {
-        // first line show email already exit in postman and second user already exist in console
-        res.status(400)
-        throw new Error("user already exists") 
-    }
-    // if user does not exit then 
-    const user = await User.create({ name, email, password, pic })
-    
-    if (user) {
-        res.status(201).json({
-          _id: user._id,
-          name: user.name,
-          email: user.email,
-          isAdmin: user.isAdmin,
-          pic: user.pic,
-          token: generateToken(user._id),
-        });
-    } else {
-        res.status(400)
-        throw new Error("error occured!")
-    }
-         
+  // if user already exist in database
+  const userExists = await User.findOne({ email });
+
+  if (userExists) {
+    // first line show email already exit in postman and second user already exist in console
+    res.status(400);
+    throw new Error("user already exists");
+  }
+  // if user does not exit then
+  const user = await User.create({ name, email, password, pic });
+
+  if (user) {
+    res.status(201).json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      pic: user.pic,
+      token: generateToken(user._id),
+    });
+  } else {
+    res.status(400);
+    throw new Error("error occured!");
+  }
 });
 
 
